@@ -4,7 +4,7 @@
             "fkooman\\IndieCert\\Enroll\\": "src/"
         }
     },
-    "description": "IndieCert Client Certificate Service",
+    "description": "IndieCert Enrollment",
     "license": " AGPL-3.0",
     "name": "indiecert/enroll",
     "require": {
