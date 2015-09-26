@@ -1,0 +1,18 @@
+{
+    "autoload": {
+        "psr-0": {
+            "fkooman\\IndieCert\\Enroll\\": "src/"
+        }
+    },
+    "description": "IndieCert Client Certificate Service",
+    "license": " AGPL-3.0",
+    "name": "indiecert/enroll",
+    "require": {
+        "fkooman/ini": "^1.0.0",
+        "fkooman/io": "^1.0.0",
+        "fkooman/rest": "^1.0.1",
+        "fkooman/tpl-twig": "^1.0.0",
+        "php": ">=5.4",
+        "phpseclib/phpseclib": "^2.0.0"
+    }
+}
