@@ -30,8 +30,7 @@
             <input type="submit" value="Generate">
         </form>
 
-        <!--
-        <p>
+        <p class="info">
             {% if referrer %}
                 After the certificate is successfully installed you can continue the login
                 process by clicking <a href="{{ referrer|e }}">here</a>.
@@ -39,7 +38,7 @@
                 After the certificate is sucessfully installed you should be able to login to
                 services supporting IndieCert!
             {% endif %}
-        </p> -->
+        </p>
 
         {% include 'footer.html' %}
     </div> <!-- /container -->
