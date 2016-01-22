@@ -1,46 +1,52 @@
 <!DOCTYPE html>
 
 <html lang="en">
-{% include 'head.html' %}
+{% include 'head.twig' %}
 <body>
-    <div id="container">
-        <a class="header" href="."><h1>IndieCert Enrollment</h1></a>
-        <p>
-            Here you can generate a new client certificate to be installed in 
-            your browser.
-        </p>
-        <p>
-            The following browsers and platforms were tested and are working:
-        </p>
-        <ul>
-            <li>Firefox (Windows, Linux, Android)</li>
-            <li>Chromium (Linux)</li>
-            <li>Chrome (Windows, Android)</li>
-        </ul>
-        <p>
-            Press the "Generate" button below to start the certificate generation process.
-        </p>
-            After this has completed you should get a notification by your browser that a
-            client certificate was successfully installed.
-        </p>
+    {% include 'header.twig' %}
 
-        <form method="post">
+    <p>
+        Here you can generate a new client certificate to be installed in 
+        your browser.
+    </p>
+    <p>
+        The following browsers and platforms were tested and are working:
+    </p>
+
+    <ul>
+        <li>Firefox (Windows, Linux, Android)</li>
+        <li>Chromium (Linux)</li>
+        <li>Chrome (Windows, Android)</li>
+    </ul>
+
+    <p>
+        Press the "Generate" button below to start the certificate generation process.
+    </p>
+    <p>
+        After this has completed you should get a notification by your browser that a
+        client certificate was successfully installed.
+    </p>
+
+    <form method="post">
+        <fieldset>
+            <legend>Generate Certificate</legend>
             <keygen name="spkac" challenge="{{ certChallenge|e }}" keytype="RSA">
-            <label>WebID+TLS URI<input type="text" name="me" value="{{ me|e }}"></label>
-            <input type="submit" value="Generate">
-        </form>
+            <label for="me">WebID+TLS URI</label>
+            <input type="text" name="me" value="{{ me|e }}" placeholder="https://example.org">
+            <button type="submit">Generate</button>
+        </fieldset>
+    </form>
 
-        <p class="info">
-            {% if referrer %}
-                After the certificate is successfully installed you can continue the login
-                process by clicking <a href="{{ referrer|e }}">here</a>.
-            {% else %}
-                After the certificate is sucessfully installed you should be able to login to
-                services supporting IndieCert!
-            {% endif %}
-        </p>
+    <p class="info">
+        {% if referrer %}
+            After the certificate is successfully installed you can continue the login
+            process by clicking <a href="{{ referrer|e }}">here</a>.
+        {% else %}
+            After the certificate is sucessfully installed you should be able to login to
+            services supporting <a href="https://indiewebcamp.com/distributed-indieauth">Distributed IndieAuth</a>!
+        {% endif %}
+    </p>
 
-        {% include 'footer.html' %}
-    </div> <!-- /container -->
+    {% include 'footer.twig' %}
 </body>
 </html>

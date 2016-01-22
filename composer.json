@@ -8,7 +8,7 @@
     "license": " AGPL-3.0",
     "name": "indiecert/enroll",
     "require": {
-        "fkooman/ini": "^1.0.0",
+        "fkooman/config": "^1.0.0",
         "fkooman/io": "^1.0.0",
         "fkooman/rest": "^1.0.1",
         "fkooman/tpl-twig": "^1.0.0",

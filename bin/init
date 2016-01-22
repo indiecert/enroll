@@ -1,3 +1,4 @@
+#!/usr/bin/php
 <?php
 
 /**
@@ -16,39 +17,38 @@
  */
 require_once dirname(__DIR__).'/vendor/autoload.php';
 
-use fkooman\IndieCert\Enroll\CertManager;
-use fkooman\IndieCert\Enroll\EnrollService;
-use fkooman\Tpl\Twig\TwigTemplateManager;
 use fkooman\Config\Reader;
 use fkooman\Config\YamlFile;
-use fkooman\Http\Exception\InternalServerErrorException;
+use fkooman\IndieCert\Enroll\CertManager;
 
 try {
     $reader = new Reader(
         new YamlFile(dirname(__DIR__).'/config/config.yaml')
     );
 
-    // CertManager
+    // initialize the CA
     $caDir = $reader->v('CA', 'storageDir');
-    $caCrt = file_get_contents(sprintf('%s/ca.crt', $caDir));
-    $caKey = file_get_contents(sprintf('%s/ca.key', $caDir));
+    $keySize = $reader->v('CA', 'keySize');
+    $commonName = $reader->v('CA', 'commonName');
 
-    $certManager = new CertManager($caCrt, $caKey);
+    if (!file_exists($caDir)) {
+        if (false === @mkdir($caDir)) {
+            throw new Exception('unable to create ca directory');
+        }
+    }
 
-    // TemplateManager
-    $templateManager = new TwigTemplateManager(
-        array(
-            dirname(__DIR__).'/views',
-            dirname(__DIR__).'/config/views',
-        ),
-        $reader->v('templateCache', false, null)
-    );
+    $caData = CertManager::generateCertificateAuthority($keySize, $commonName);
 
-    $service = new EnrollService($certManager, $templateManager);
-    $service->run()->send();
+    // write CA certificate
+    if (false === @file_put_contents(sprintf('%s/ca.crt', $caDir), $caData['crt'])) {
+        throw new Exception('unable to write certificate');
+    }
+
+    // write CA private key
+    if (false === @file_put_contents(sprintf('%s/ca.key', $caDir), $caData['key'])) {
+        throw new Exception('unable to write private key');
+    }
 } catch (Exception $e) {
-    // internal server error
-    error_log($e->__toString());
-    $e = new InternalServerErrorException($e->getMessage());
-    $e->getHtmlResponse()->send();
+    echo $e->getMessage().PHP_EOL;
+    exit(1);
 }

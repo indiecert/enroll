@@ -1,7 +1,0 @@
-; Uncomment this line below to enable Twig template caching
-;templateCache = "/var/lib/indiecert-enroll/tpl"
-
-[CA]
-storageDir = '/var/lib/indiecert-enroll/ca'
-commonName = 'Demo CA'
-keySize = 2048
