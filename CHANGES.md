@@ -1,6 +1,6 @@
 # Changes
 
-## 2.0.0 (...)
+## 2.0.0 (2016-01-22)
 - major cleanup
 - switch configuration to YAML
 - cleanup templates and styling
