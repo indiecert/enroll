@@ -1,5 +1,8 @@
 # Changes
 
+## 2.0.1 (...)
+- reduce default page width
+
 ## 2.0.0 (2016-01-22)
 - major cleanup
 - switch configuration to YAML
